@@ -1,0 +1,2 @@
+# Taboo
+Traditional taboo game
