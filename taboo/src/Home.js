@@ -204,7 +204,7 @@ const Home = () => {
         <Box sx={{ width: '100%' }} >
             <TabooBar />
 
-            <Box sx={{ display: 'flex', height: '100vh' }}>
+            <Box sx={{ display: 'flex', height: '90vh' }}>
                 {/* Left Sidebar - Scoreboard */}
                 <Box sx={{ width: "15%" }}>
                     <Scoreboard gameState={gameState} />

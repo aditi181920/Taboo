@@ -1,10 +1,11 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { gameState } from '../data'
 import { AppBar, Toolbar, Typography } from '@mui/material'
 import { Casino } from '@mui/icons-material'
+import { useRoomContext } from '../RoomProvider';
 
 function TabooBar() {
-    const { currentPlayer, setCurrentPlayer, round, setRound } = useGameContext();
+    const { currentPlayer, setCurrentPlayer, round, setRound } = useRoomContext();
     const [timer, setTimer] = useState(60);
 
     useEffect(() => {
