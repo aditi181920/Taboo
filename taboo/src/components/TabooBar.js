@@ -1,27 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { gameState } from '../data'
 import { AppBar, Toolbar, Typography } from '@mui/material'
 import { Casino } from '@mui/icons-material'
-import { useRoomContext } from '../RoomProvider';
 
 function TabooBar() {
-    const { currentPlayer, setCurrentPlayer, round, setRound } = useRoomContext();
-    const [timer, setTimer] = useState(60);
-
-    useEffect(() => {
-        if (timer > 0) {
-            const interval = setInterval(() => setTimer((prev) => prev - 1), 1000);
-            return () => clearInterval(interval);
-        } else {
-            handleTurnEnd();
-        }
-    }, [timer]);
-
-    const handleTurnEnd = () => {
-        // Logic to switch to the next player
-        setTimer(60);
-        // Update currentPlayer and round logic here
-    };
     return (
         <AppBar position="static"
             sx={{

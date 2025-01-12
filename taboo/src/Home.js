@@ -18,6 +18,7 @@ import Scoreboard from './components/scoreboard';
 import Chatsection from './components/chatsection';
 import RoomEntry from './RoomEntry';
 import TabooBar from './components/TabooBar';
+import GameStatus from './components/GameStatus';
 
 const socket = io('http://localhost:3001');
 
@@ -132,45 +133,6 @@ const Home = () => {
         }
     };
 
-    // Chat window component
-
-
-    // Game status bar - now centered
-    const GameStatus = () => (
-        <Paper elevation={3} sx={{ p: 1, width: '100%', height: '3%', borderRadius: 0, paddingTop: 2, paddingBottom: 3 }}>
-            <Grid container justifyContent="space-around" alignItems="center">
-                <Grid item sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <Timer />
-                    <Typography variant="h6" sx={{
-                        fontSize: {
-                            xs: '0.75rem', // Small screens
-                            sm: '0.85rem',    // Medium screens
-                            md: '0.90rem', // Large screens
-                        },
-                    }}>Time: {gameState.timeLeft}s</Typography>
-                </Grid>
-                <Grid item sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <People />
-                    <Typography variant="h6" sx={{
-                        fontSize: {
-                            xs: '0.75rem', // Small screens
-                            sm: '0.85rem',    // Medium screens
-                            md: '0.90rem', // Large screens
-                        },
-                    }}>Players: {gameState.players.length}</Typography>
-                </Grid>
-                <Grid item>
-                    <Typography variant="h6" sx={{
-                        fontSize: {
-                            xs: '0.75rem', // Small screens
-                            sm: '0.85rem',    // Medium screens
-                            md: '1rem', // Large screens
-                        },
-                    }}>Round: {gameState.currentRound}/3</Typography>
-                </Grid>
-            </Grid>
-        </Paper>
-    );
 
     // Game board component
     const GameBoard = () => (

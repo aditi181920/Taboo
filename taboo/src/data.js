@@ -6,7 +6,7 @@ export const gameState = {
       { player: 'Charlie', score: 8, rank: 3 },
     ],
     roomCode: '',
-    players: ['Aditi'],
+    players: ['Aditi', 'Bob', 'Charlie'],
     currentWord: 'dob',
     isWordGiver: true,
     currentRound: 1,
