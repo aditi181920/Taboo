@@ -7,9 +7,9 @@ function Chatsection() {
         <Box sx={{
             display: 'flex',
             flexDirection: {
-                xs: 'row', // For extra-small and small screens
-                sm: 'row',
-                md: 'column', // For medium and larger screens
+                xs: 'column', // For extra-small and small screens
+                sm: 'column',
+                md: 'row', // For medium and larger screens
             }, flex: 1, justifyContent: 'space-between', height: '100%'
         }}>
             {/*(!gameState.isWordGiver && gameState.currentTurn === socket.id) ? */
@@ -17,7 +17,7 @@ function Chatsection() {
                     (
                         // Player's turn - show hints and questions
                         <>
-                            <Grid item xs={12} flex={1} m={1} sx={{ height: { md: '40%', sm: '90%', xs: '90%' } }}>
+                            <Grid item xs={12} flex={1} m={1} sx={{ height: { md: '100%', sm: '100%', xs: '100%' } }}>
                                 <ChatWindow
                                     title="Hints"
                                     isDisabled={false}
@@ -26,7 +26,7 @@ function Chatsection() {
                                 />
 
                             </Grid>
-                            <Grid item xs={12} flex={1} m={1} sx={{ height: { md: '40%', sm: '90%', xs: '90%' } }}>
+                            <Grid item xs={12} flex={1} m={1} sx={{ height: { md: '100%', sm: '100%', xs: '100%' } }}>
                                 <ChatWindow
                                     title="Questions"
                                     isDisabled={false}

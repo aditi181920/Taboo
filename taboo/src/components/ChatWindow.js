@@ -54,7 +54,7 @@ function ChatWindow({ title, isDisabled, placeholder, currentUser }) {
                     padding: '3%'
                 }}
             />
-            <CardContent sx={{ display: 'flex', flexDirection: 'column', height: { md: '75%', sm: '85%', xs: '85%' }, paddingTop: '0px', paddingBottom: '1%' }}>
+            <CardContent sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, paddingTop: '0px', paddingBottom: '1%' }}>
                 {/* Message Area */}
                 <div
                     style={{
@@ -93,7 +93,7 @@ function ChatWindow({ title, isDisabled, placeholder, currentUser }) {
 
 
             {/* Input Area */}
-            <div style={{ display: 'flex', paddingLeft: 15, paddingBottom: 1 }}>
+            <div style={{ display: 'flex', paddingLeft: 15, paddingBottom: 1, height: '7%', marginTop: 10, marginBottom: 10 }}>
                 <TextField
                     fullWidth
                     size="small"
@@ -104,13 +104,15 @@ function ChatWindow({ title, isDisabled, placeholder, currentUser }) {
                     onKeyPress={(e) => e.key === 'Enter' && handleSend()} // Send on Enter key
                     sx={{
                         width: '90%',
-
+                        '& .MuiInputBase-root': {
+                            height: '100%',
+                        },
                         '& .MuiInputBase-input': {
                             fontSize: {
                                 xs: '0.65rem', // Small screens
                                 sm: '0.75rem',    // Medium screens
                                 md: '0.80rem', // Large screens
-                            }, height: '10%',
+                            }, height: '100%',
                             padding: 0.8,
                         },
                     }}
@@ -121,6 +123,7 @@ function ChatWindow({ title, isDisabled, placeholder, currentUser }) {
                     sx={{
                         color: isDisabled || inputValue.trim() === '' ? 'grey.500' : 'primary.main',
                         padding: '1px',
+                        margin: 1,
                     }}
                 >
                     <SendIcon fontSize="small" />

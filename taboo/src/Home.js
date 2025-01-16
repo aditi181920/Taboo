@@ -168,7 +168,7 @@ const Home = () => {
 
             <Box sx={{ display: 'flex', height: '90vh' }}>
                 {/* Left Sidebar - Scoreboard */}
-                <Box sx={{ width: "15%" }}>
+                <Box sx={{ width: "25%" }}>
                     <Scoreboard gameState={gameState} />
                 </Box>
 
@@ -176,28 +176,15 @@ const Home = () => {
                 <Box
                     sx={{
                         display: 'flex',
-                        flexGrow: 1,
-                        marginBottom: '0px',
-                        flexDirection: {
-                            xs: 'column', // For extra-small and small screens
-                            sm: 'column',
-                            md: 'row', // For medium and larger screens
-                        }
+                        flexDirection: 'column',
+                        marginBottom: '2px',
+                        width: '75%',
+                        marginRight: 2,
+                        height: { xs: '90%', sm: '90%', md: '90%' }
                     }}
                 >
-                    <Box sx={{ marginLeft: 2, marginRight: 2, marginBottom: 0, width: { md: '55%' }, height: { xs: '60%', sm: '45%', md: '90%' } }}>
-                        <GameStatus />
-                        <GameBoard />
-                    </Box>
-                    <Box sx={{
-                        width: {
-                            xs: '100%', // For extra-small and small screens
-                            md: '45%', // For medium and larger screens
-                            sm: '100%'
-                        }, display: 'flex', height: { xs: '70%', sm: '55%', md: '100%' }
-                    }}>
-                        <Chatsection />
-                    </Box>
+                    <GameStatus />
+                    <Chatsection />
                 </Box>
             </Box>
 

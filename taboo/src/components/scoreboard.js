@@ -12,7 +12,8 @@ const Scoreboard = (props) => {
       sx={{
         p: 2,
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        borderRadius: 0,
       }}
     >
       <Typography variant="h6" sx={{
