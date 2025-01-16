@@ -4,6 +4,7 @@ import { use } from 'react';
 import { useRoomContext } from '../RoomProvider';
 const Scoreboard = (props) => {
   const { currentPlayer } = useRoomContext();
+  console.log('currentplayer:',currentPlayer);
   return (
 
     <Paper

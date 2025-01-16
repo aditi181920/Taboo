@@ -31,8 +31,8 @@ function GameStatus() {
             //end game logic ... do to a new page.. show results and give a option to either quit or play again
             //play again means we are making it players play in the same room, no room change
         }
-        const nextPlayer = currentPlayer === totalPlayers ? 0 : currentPlayer + 1;
-        const nextRound = currentPlayer === totalPlayers ? round + 1 : round;
+        const nextPlayer = currentPlayer === (totalPlayers - 1) ? 0 : currentPlayer + 1;  //since currentplayer is 0 indexed and totalplayer is 1 indexed
+        const nextRound = currentPlayer === (totalPlayers - 1) ? round + 1 : round;
         setShowModal(true);
         setTimer(0); // Reset timer for the modal
         setTimeout(() => {
@@ -53,8 +53,8 @@ function GameStatus() {
     // Update currentPlayer and round logic here
 
     const handleClose = () => {
-        const nextPlayer = currentPlayer === totalPlayers ? 0 : currentPlayer + 1;
-        const nextRound = currentPlayer === totalPlayers ? round + 1 : round;
+        const nextPlayer = currentPlayer === (totalPlayers - 1) ? 0 : currentPlayer + 1;
+        const nextRound = currentPlayer === (totalPlayers - 1) ? round + 1 : round;
         setShowModal(false);
         setIsWaiting(false);
         setCurrentPlayer(nextPlayer);
