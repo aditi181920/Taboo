@@ -2,15 +2,20 @@ import React, { useState, useEffect } from 'react'
 import { useRoomContext } from '../RoomProvider'
 import { Grid, Typography, Paper, Modal, Box, Button } from '@mui/material';
 import { People, Timer } from '@mui/icons-material';
-import { gameState } from '../data';
+import { gameCards, gameState } from '../data';
 import { grey } from '@mui/material/colors';
+import _ from 'lodash';
 
 
 function GameStatus() {
     const { currentPlayer, setCurrentPlayer, round, setRound, totalRounds, totalPlayers } = useRoomContext();
-    const [timer, setTimer] = useState(60);
+    const [timer, setTimer] = useState(0);
     const [showModal, setShowModal] = useState(false);
-    const [isWaiting, setIsWaiting] = useState(false);
+    const [isWaiting, setIsWaiting] = useState(false);  //iswaiting needs to be used somehow
+    const [curwordIndex, setCurWordIndex] = useState(0);
+    const [wordindexes, setWordIndexes] = useState([0, 1, 2]);
+    const [showCardModal, setShowCardModal] = useState(false);
+    const buttons = Array.from({ length: 3 }, (_, index) => index);
 
     useEffect(() => {
         if (timer > 0) {
@@ -33,6 +38,10 @@ function GameStatus() {
         }
         const nextPlayer = currentPlayer === (totalPlayers - 1) ? 0 : currentPlayer + 1;  //since currentplayer is 0 indexed and totalplayer is 1 indexed
         const nextRound = currentPlayer === (totalPlayers - 1) ? round + 1 : round;
+        const sz = gameCards.length;
+        const range = _.range(0, sz);
+        const randomNumbers = _.sampleSize(range, 3); // Get 3 distinct random numbers
+        setWordIndexes(randomNumbers);
         setShowModal(true);
         setTimer(0); // Reset timer for the modal
         setTimeout(() => {
@@ -52,53 +61,55 @@ function GameStatus() {
     };
     // Update currentPlayer and round logic here
 
-    const handleClose = () => {
+    const handleClose = (index) => {
         const nextPlayer = currentPlayer === (totalPlayers - 1) ? 0 : currentPlayer + 1;
         const nextRound = currentPlayer === (totalPlayers - 1) ? round + 1 : round;
-        setShowModal(false);
+        setCurWordIndex(wordindexes[index]);
         setIsWaiting(false);
         setCurrentPlayer(nextPlayer);
         setRound(nextRound);
+        setShowModal(false);
         setTimer(60); // Reset timer for the next turn
     };
     return (
         <>
             <Modal
                 open={showModal}
-                onClose={handleClose}
+                onClose={() => handleClose}
                 aria-labelledby="modal-title"
                 aria-describedby="modal-description"
-            ><>
-                    <Box
-                        sx={{
-                            position: "absolute",
-                            top: "50%",
-                            left: "50%",
-                            transform: "translate(-50%, -50%)",
-                            width: 400,
-                            bgcolor: "background.paper",
-                            boxShadow: 24,
-                            p: 4,
-                            borderRadius: 2,
-                        }}
-                    >
-                        <Typography id="modal-title" variant="h6" component="h2" sx={{
-                            fontSize: {
-                                xs: '0.75rem', // Small screens
-                                sm: '0.85rem',    // Medium screens
-                                md: '0.90rem', // Large screens
-                            },
-                        }}>
-                            Choose any one
-                        </Typography>
-                        <Box sx={{
-                            display: 'flex', justifyContent: 'space-between', flexDirection: {
-                                xs: 'column', // For extra-small and small screens
-                                sm: 'row',
-                                md: 'row', // For medium and larger screens
-                            },
-                        }}>
-                            <Button variant="outlined" onClick={handleClose} sx={{
+            >
+                <Box
+                    sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        width: 400,
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        p: 4,
+                        borderRadius: 2,
+                    }}
+                >
+                    <Typography id="modal-title" variant="h6" component="h2" sx={{
+                        fontSize: {
+                            xs: '0.75rem', // Small screens
+                            sm: '0.85rem',    // Medium screens
+                            md: '0.90rem', // Large screens
+                        },
+                    }}>
+                        Choose any one
+                    </Typography>
+                    <Box sx={{
+                        display: 'flex', justifyContent: 'space-between', flexDirection: {
+                            xs: 'column', // For extra-small and small screens
+                            sm: 'row',
+                            md: 'row', // For medium and larger screens
+                        },
+                    }}>
+                        {buttons.map((index) => (
+                            <Button variant="outlined" onClick={() => handleClose(index)} key={index} sx={{
                                 mt: 2, color: 'black', borderColor: grey[500], // Border color
                                 "&:hover": {
                                     borderColor: "purple", // Border color on hover
@@ -109,39 +120,40 @@ function GameStatus() {
                                     md: '0.90rem', // Large screens
                                 },
                             }}>
-                                Word1
+                                {gameCards[wordindexes[index]].cardName}
                             </Button>
-                            <Button variant="outlined" onClick={handleClose} sx={{
-                                mt: 2, color: 'black', borderColor: grey[500], // Border color
-                                "&:hover": {
-                                    borderColor: "purple", // Border color on hover
-                                },
-                                fontSize: {
-                                    xs: '0.75rem', // Small screens
-                                    sm: '0.85rem',    // Medium screens
-                                    md: '0.90rem', // Large screens
-                                },
-                            }}>
-                                Word2
-                            </Button>
-                            <Button variant="outlined" onClick={handleClose} size="small" sx={{
-                                mt: 2, color: 'black', borderColor: grey[500], // Border color
-                                "&:hover": {
-                                    borderColor: "purple", // Border color on hover
-                                },
-                                fontSize: {
-                                    xs: '0.75rem', // Small screens
-                                    sm: '0.85rem',    // Medium screens
-                                    md: '0.90rem', // Large screens
-                                },
-                                typography: 'body2',
+                        ))
+                        }
+                    </Box>
+                </Box>
+            </Modal>
+            <Modal
+                open={showCardModal}
+                onClose={() => setShowCardModal(false)}
+                aria-labelledby="modal-title"
+                aria-describedby="modal-description"
+
+            >
+                <Box sx={{
+                    bgcolor: "background.paper",
+                    position: 'absolute',
+                    top: "30%",
+                    left: "50%",
+                    borderRadius: 2,
+                    width: 200,
+                    justifyContent: 'center',
+                }}>
+                    <Typography sx={{ backgroundColor: 'peachpuff', justifyContent: 'center', p: 1 }} variant="h6" component="h2">
+                        {gameCards[curwordIndex].cardName}
+                    </Typography>
+                    {[...gameCards[curwordIndex].tabooWords].map((word, index) => (
+                        <Typography key={index} sx={{ p: 1, border: 1, borderColor:'grey' }}>{word}</Typography>
+                    ))}
+                </Box>
 
 
-                            }} >
-                                Word3
-                            </Button>
-                        </Box>
-                    </Box></></Modal>
+
+            </Modal>
             <Paper elevation={3} sx={{ p: 1, width: '100%', height: '3%', borderRadius: 0, paddingTop: 2, paddingBottom: 3 }}>
                 <Grid container justifyContent="space-around" alignItems="center">
                     <Grid item sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -172,6 +184,15 @@ function GameStatus() {
                                 md: '1rem', // Large screens
                             },
                         }}>Round: {round}/3</Typography>
+                    </Grid>
+                    <Grid item>
+                        <Button
+                            sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
+                            onClick={() => setShowCardModal(true)}>
+                            <Typography sx={{ fontSize: '12px', fontWeight: 'bold' }}>{gameCards[curwordIndex].cardName}</Typography>
+                            <Typography sx={{ fontSize: '8px', color: 'black', fontWeight: 'bold' }}>Click to see TABOO words</Typography>
+
+                        </Button>
                     </Grid>
                 </Grid>
             </Paper>

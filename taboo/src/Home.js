@@ -133,35 +133,6 @@ const Home = () => {
         }
     };
 
-
-    // Game board component
-    const GameBoard = () => (
-        <Paper
-            elevation={3}
-            sx={{
-                height: '80%',
-                p: 1,
-                width: '100%',
-                bgcolor: 'grey.100',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 0
-            }}
-        >
-            {gameState.isWordGiver ? (
-                <Typography variant="h3" align="center" color="primary">
-                    Your word is: {gameState.currentWord}
-                </Typography>
-            ) : (
-                <Typography variant="h3" align="center" color="text.secondary">
-                    Guess the word!
-                </Typography>
-            )}
-        </Paper>
-    );
-
     return (
         <Box sx={{ width: '100%' }} >
             <TabooBar />
@@ -180,7 +151,7 @@ const Home = () => {
                         marginBottom: '2px',
                         width: '75%',
                         marginRight: 2,
-                        height: { xs: '90%', sm: '90%', md: '90%' }
+                        height: { xs: '90%', sm: '90%', md: '90%' },
                     }}
                 >
                     <GameStatus />

@@ -54,7 +54,7 @@ function ChatWindow({ title, isDisabled, placeholder, currentUser }) {
                     padding: '3%'
                 }}
             />
-            <CardContent sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, paddingTop: '0px', paddingBottom: '1%' }}>
+            <CardContent sx={{ display: 'flex', flexDirection: 'column', height: '80%', paddingTop: '0px', paddingBottom: '1%' }}>
                 {/* Message Area */}
                 <div
                     style={{
@@ -62,7 +62,7 @@ function ChatWindow({ title, isDisabled, placeholder, currentUser }) {
                         display: 'flex',
                         //flexWrap: 'wrap',
                         flexDirection: 'column',
-                        overflowY: 'auto',
+                        overflowY: 'scroll',
                         height: '100%',
 
                     }}
